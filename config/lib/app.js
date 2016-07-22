@@ -2,7 +2,8 @@
 
 var express = require('./express'),
     config = require('../config'),
-    path = require('path');
+    path = require('path'),
+    mongoose = require('./mongoose');
 
 module.exports.loadRoutes = function(app){
   var coreRoute = require(path.join(process.cwd(),'modules/core/server/routes/core.server.routes'));
@@ -10,12 +11,16 @@ module.exports.loadRoutes = function(app){
 };
 
 module.exports.start = function(){
-    var app = express.init();
+   var self = this;
+    // Initialize Express if mongodb is available
+    mongoose.connect(function(db){
 
-    // Routes registration
-    this.loadRoutes(app);
+        var app = express.init();
+        // Routes registration
+        self.loadRoutes(app);
+        app.listen(config.app.port, function(){
+            console.log("Application is running on port :: "+config.app.port);
+        });
 
-    app.listen(config.app.port, function(){
-        console.log("Application is running on port :: "+config.app.port);
-    });
+    })
 }

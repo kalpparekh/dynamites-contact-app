@@ -1,6 +1,7 @@
 'use strict';
 
-var mockService = require('../utils/core.server.mock');
+var mockService = require('../utils/core.server.mock'),
+    contactService = require('../services/contact.server.service');
 
 module.exports.getContacts = function(req, res){
     res.status(200);
@@ -13,11 +14,18 @@ module.exports.createContact = function(req,res){
         res.status(400);
         res.end("ERROR: couldn't save contact");
     }
-    contact =  mockService.saveContact(contact);
-    if(contact){
-        res.status(200);
-        res.json(contact);
-    }
+    contactService.saveContact(contact, function(err, contact){
+        if(err){
+            console.log(err);
+            res
+                .status(400)
+                .send({message: "Error:: Internal error while saving data. Please try later"});
+        }else {
+            res.status(200);
+            res.json(contact);
+
+        }
+    });
 }
 
 module.exports.updateContact = function(req, res){
