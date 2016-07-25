@@ -1,8 +1,13 @@
 'use strict';
 
-module.exports = function(app){
+var controller = require('../controllers/core.server.controller'),
+    mainController = require('../controllers/main.server.controller');
 
-        var controller = require('../controllers/core.server.controller');
+
+module.exports = function(app){
+    app
+        .route('/')
+            .get(mainController.index);
 
     // Contact collection and creation
     app
