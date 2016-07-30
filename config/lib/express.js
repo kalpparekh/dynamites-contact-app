@@ -4,8 +4,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     consolidate = require('consolidate'),
     swig = require('swig'),
-    path = require('path');
-
+    path = require('path'),
+    config = require('../config');
 
 module.exports.init = function(){
     var app = express();
@@ -33,6 +33,10 @@ module.exports.initViewEngine = function(app){
 
 module.exports.initIgnoreStaticRoutes = function(app){
     app.use('/public', express.static(path.resolve('./public')));
+
+    config.client.files.forEach(function(staticPath){
+        app.use(staticPath, express.static(path.resolve('./'+ staticPath)));
+    })
 }
 
 
