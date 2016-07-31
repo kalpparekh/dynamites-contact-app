@@ -3,12 +3,12 @@
 var ApplicationConfiguration  = (function(){
 
     var _applicationModuleName = 'ContactsApp',
-        _applicationDependencies = [];
+        _applicationDependencies = ['ui.router'];
 
     var _registerModule = function(moduleName, dependencies){
         // create angular module
-        angular.module(applicationModuleName, dependencies || []);
-        angular.module(applicationModuleName).requires.push(moduleName);
+        angular.module(moduleName, dependencies || []);
+        angular.module(_applicationModuleName).requires.push(moduleName);
     }
 
     return {
