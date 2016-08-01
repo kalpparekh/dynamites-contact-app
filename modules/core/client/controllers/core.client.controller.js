@@ -87,4 +87,9 @@ angular
             ];
 
             $scope.fields = Object.keys($scope.contacts[0]) || [];
-        });
+        })
+        .controller('saveCtrl', function($scope){
+            $scope.saveContact = function(contact){
+                debugger;
+            }
+        })
