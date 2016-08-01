@@ -1,3 +1,3 @@
 'use strict';
 
-ApplicationConfiguration.registerModule('core');
+ApplicationConfiguration.registerModule('core',['ui.router']);
