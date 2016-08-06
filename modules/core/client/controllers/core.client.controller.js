@@ -2,7 +2,7 @@
 
 angular
     .module('ContactsApp')
-        .controller('ContactsCtrl', function($scope, ContactService){
+        .controller('ContactsCtrl', function($scope, ContactService, $state){
 
             var contactsPromise = ContactService.getContacts();
 
@@ -18,10 +18,27 @@ angular
                 .success(successCallback)
                 .error(failureCallback);
 
+            $scope.updateContact = function(contact){
+                $state.go('edit',{contactId: contact.id});
+            }
 
         })
         .controller('saveCtrl', function($scope){
             $scope.saveContact = function(contact){
-                debugger;
             }
         })
+    .controller('editCtrl', function($scope, contactId, ContactService){
+        ContactService
+            .getContact(contactId)
+            .success(function(contact){
+                $scope.contact = contact;
+            }).error(function(err){
+            console.log("Error:: occured during get opertaion")
+        })
+
+
+        $scope.saveContact = function(contact){
+            debugger;
+        }
+    })
+

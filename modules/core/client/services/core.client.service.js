@@ -9,8 +9,12 @@ angular
                 return promise;
             }
 
+            var _getContact = function(contactId){
+                return $http.get('/api/contact/'+contactId);
+            }
             return {
-                getContacts: _getContacts
+                getContacts: _getContacts,
+                getContact: _getContact
             };
 
         });
