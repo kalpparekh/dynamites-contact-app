@@ -2,7 +2,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th ng-repeat="field in fields" ng-bind="field"></th>
+            <th ng-repeat="field in fields" ng-bind="field | labelCase"></th>
             <th>Action</th>
         </tr>
         </thead>
